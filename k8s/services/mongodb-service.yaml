@@ -5,7 +5,7 @@ metadata:
   namespace: database
 spec:
   selector:
-    app: mongodb
+    name: mongodb
   ports:
     - protocol: TCP
       port: 27017

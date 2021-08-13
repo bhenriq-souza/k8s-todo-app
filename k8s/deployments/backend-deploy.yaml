@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: backend
+  labels:
+    name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: backend
+  template:
+    metadata:
+      labels:
+        name: backend
+    spec:
+      containers:
+        - name: backend-app
+          image: bhenriqsouza/todo-app_backend:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 4200
+          env:
+          - name: SERVER_PORT
+            value: "4200"
+          - name: DATABASE
+            value: cop-kubernetes
+          - name: DB_HOST
+            value: mongodb-service.database.svc.cluster.local:27017
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: backend-secret
+                key: db-username
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: backend-secret
+                key: db-password
