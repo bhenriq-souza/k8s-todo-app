@@ -23,12 +23,19 @@ spec:
             - name: http
               containerPort: 4200
           env:
+          - name: NODE_ENV
+            value: "development"
           - name: SERVER_PORT
             value: "4200"
           - name: DATABASE
             value: cop-kubernetes
           - name: DB_HOST
-            value: mongodb-service.cop-kubernetes.svc.cluster.local:27017
+            valueFrom:
+              configMapKeyRef:
+                name: mongodb-configmap
+                key: database_url
+          - name: DB_PORT
+            value: "27017"
           - name: DB_USER
             valueFrom:
               secretKeyRef:

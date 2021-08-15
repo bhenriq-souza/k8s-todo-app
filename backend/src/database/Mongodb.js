@@ -3,12 +3,13 @@ class Mongodb {
     this.mongoose = mongoose;
     this.database = dbconfig.database;
     this.host = dbconfig.host;
+    this.port = dbconfig.port;
     this.username = dbconfig.username;
     this.password = dbconfig.password;
   }
 
   async connect() {
-    const connStr = `mongodb://${this.username}:${this.password}@${this.host}/${this.database}?authSource=admin`;
+    const connStr = `mongodb://${this.username}:${this.password}@${this.host}:${this.port}/${this.database}?authSource=admin`;
     this.conn = await this.mongoose.connect(connStr, { useNewUrlParser: true, useUnifiedTopology: true });
     return this.conn
   }
