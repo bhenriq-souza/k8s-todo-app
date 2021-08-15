@@ -6,7 +6,9 @@ metadata:
 spec:
   selector:
     name: backend
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 4200
-      targetPort: http
+      targetPort: 4200
+      nodePort: 30001
