@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-
 class Mongodb {
-  constructor(dbconfig) {
+  constructor(dbconfig, mongoose) {
+    this.mongoose = mongoose;
     this.database = dbconfig.database;
     this.host = dbconfig.host;
     this.username = dbconfig.username;
@@ -10,7 +9,7 @@ class Mongodb {
 
   async connect() {
     const connStr = `mongodb://${this.username}:${this.password}@${this.host}/${this.database}?authSource=admin`;
-    this.conn = await mongoose.connect(connStr, {useNewUrlParser: true, useUnifiedTopology: true});
+    this.conn = await this.mongoose.connect(connStr, { useNewUrlParser: true, useUnifiedTopology: true });
     return this.conn
   }
 
